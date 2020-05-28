@@ -1,0 +1,169 @@
+<div class="container mt-3">
+
+  <!-- Button to Open the Modal -->
+  <div class="text-right">
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal1">add</button>
+  </div>
+  
+
+  <!-- The Modal -->
+  <div class="modal" id="myModal1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Enter your order details</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <!-- form -->
+          <div>
+            <form #ref1='ngForm' (ngSubmit)='orderdetails(ref1.value);ref1.reset()'>
+              <div class="form-group">
+                <label for="a1">Order Number</label>
+                <input type="number" class="form-control" id="a1" name="orderno" ngModel>
+              </div>
+              <div class="form-group">
+                <label for="a2">Order Due Date</label>
+                <input type="date" class="form-control" id="a2" name="orderduedate" ngModel>
+              </div>
+              <div class="form-group">
+                <label for="a3">Customer name</label>
+                <input type="text" class="form-control" id="a3" name="name" ngModel>
+              </div>
+              <div class="form-group">
+                <label for="a4">Customer Address</label>
+                <input type="text" class="form-control" id="a4" name="address" ngModel>
+              </div>
+              <div class="form-group">
+                <label for="a5">Contact Number</label>
+                <input type="number" class="form-control" id="a5" name="contactnumber" ngModel>
+              </div>
+              <div class="form-group">
+                <label for="a6">Order Total</label>
+                <input type="number" class="form-control" id="order due date" name="totalvalue" ngModel>
+              </div>
+
+
+              <div>
+                <input id="name" name="name" class="form-control w-50"
+                    required minlength="4" appForbiddenName="bob"
+                    [(ngModel)]="hero.name" #name="ngModel" >
+              
+              <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                  class="alert alert-danger">
+              
+                <div *ngIf="name.errors.required">
+                  Name is required.
+                </div>
+                <div *ngIf="name.errors.minlength">
+                  Name must be at least 4 characters long.
+                </div>
+                <div *ngIf="name.errors.forbiddenName">
+                  Name cannot be Bob.
+                </div>
+              
+              </div>
+              </div>
+              
+
+
+              <div class="text-right">
+                <button type="submit" class="btn btn-warning" >Place Order</button>
+                <!-- <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Close</button> -->
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <!-- <div class="modal-footer">
+        </div> -->
+
+      </div>
+    </div>
+  </div>
+
+  <!--===============================================================-->
+  <!-- creating table -->
+  <table class="table table-striped mt-2 jumbotron">
+    <thead>
+      <th>Order Number</th>
+      <th>Order Due Date</th>
+      <th>Customer name</th>
+      <th>Customer Address</th>
+      <th>Contact Numberr</th>
+      <th>Order Total</th>
+      <th>delete</th>
+      <th>edit</th>
+    </thead>
+    <tr *ngFor='let i of orderdata'>
+      <td>{{i.orderno}}</td> 
+      <td>{{i.orderduedate}}</td>
+      <td>{{i.name}}</td>
+      <td>{{i.address}}</td>
+      <td>{{i.contactnumber}}</td>
+      <td>{{i.totalvalue}}</td>
+      <td><button (click)='orderDelete(i.orderno)' class="btn btn-danger">delete</button></td>
+      <td><button type="button" class="btn btn-success" (click)='update(i)' data-toggle="modal" data-target="#myModal2">edit</button></td>
+    </tr>
+  </table>
+  <!-- The Modal -->
+   <div class="modal" id="myModal2">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        
+        <div class="modal-header">
+          <h4 class="modal-title">Enter your order details</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+          
+          <div>
+             <form #ref='ngForm' (ngSubmit)='orderEdit(ref.value)'>
+              <div class="form-group">
+                <label for="a1">Order Number</label>
+                <input type="number" class="form-control" id="a1" name="orderno" [ngModel]=updatedata.orderno >
+              </div>
+              <div class="form-group">
+                <label for="a2">Order Due Date</label>
+                <input type="date" class="form-control" id="a2" name="orderduedate"
+                [ngModel]=updatedata.orderduedate>
+              </div>
+              <div class="form-group">
+                <label for="a3">Customer name</label>
+                <input type="text" class="form-control" id="a3" name="name" [ngModel]=updatedata.name>
+              </div>
+              <div class="form-group">
+                <label for="a4">Customer Address</label>
+                <input type="text" class="form-control" id="a4" name="address" [ngModel]=updatedata.address>
+              </div>
+              <div class="form-group">
+                <label for="a5">Contact Number</label>
+                <input type="number" class="form-control" id="a5" name="contactnumber" [ngModel]=updatedata.contactnumber>
+              </div>
+              <div class="form-group">
+                <label for="a6">Order Total</label>
+                <input type="number" class="form-control" id="order due date" name="totalvalue" [ngModel]=updatedata.totalvalue>
+              </div>
+
+              <div class="text-right">
+                <button type="submit" class="btn btn-warning">update</button>
+              </div>
+            </form>  
+          </div>
+        </div>
+
+       
+
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
