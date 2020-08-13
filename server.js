@@ -55,29 +55,28 @@ mc.connect(dbUrl, { useUnifiedTopology: true, useNewUrlParser: true }, (err, cli
 
 //POST request handler
 app.post('/order', (req, res) => {
-    console.log(req.body)
+
     dbo.collection('orders').findOne({ orderno: req.body.orderno }
         , (err, result) => {
-        console.log(result)
-        if (err) {
-            console.log('err in find', err)
-        }
-        else if (result == null) {
-            dbo.collection('orders').insertOne(req.body, (err, obj) => {
-                console.log(req.body)
-                if (err) {
-                    console.log('err in insert', err)
-                }
-                else {
-                    res.send({ message: 'data inserted success' })
-                }
-            })
-        }
-        else
-        {
-            res.send({message:'data already existed'})
-        }
-    })
+
+            if (err) {
+                console.log('err in find', err)
+            }
+            else if (result == null) {
+                dbo.collection('orders').insertOne(req.body, (err, obj) => {
+
+                    if (err) {
+                        console.log('err in insert', err)
+                    }
+                    else {
+                        res.send({ message: 'data inserted success' })
+                    }
+                })
+            }
+            else {
+                res.send({ message: 'data already existed' })
+            }
+        })
 })
 
 
@@ -102,7 +101,6 @@ app.get('/readAll', (req, res) => {
 
 //DELETE request handler
 app.delete('/delete/:ono', (req, res) => {
-    console.log(req.params);
     let x = (+req.params.ono);
     dbo.collection('orders').deleteOne({ orderno: x }, (err, dobj) => {
         if (err) {
@@ -118,13 +116,12 @@ app.delete('/delete/:ono', (req, res) => {
 
 //PUT request handler
 app.put('/update', (req, res) => {
-    console.log(req.body)
     dbo.collection('orders').find({ orderno: req.body.orderno }, (err, orderObj) => {
         if (err) {
             console.log('err in find', err)
         }
         else if (orderObj == null) {
-            console.log(orderObj)
+
             res.send({ message: 'no order found' })
         }
         else {

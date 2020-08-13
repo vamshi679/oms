@@ -28,8 +28,6 @@ export class UserordersComponent implements OnInit {
         this.orderdata=data1['message']
       }
     })
-
-    console.log(`data of type ${this.updatedata}`)
   }
 
 
